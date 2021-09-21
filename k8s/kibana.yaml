@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kib-auto
+  labels:
+    name: kib-auto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: kib-auto
+  template:
+    metadata:
+      labels:
+         name: kib-auto
+    spec:
+      containers:
+        - name: kib-auto
+           image: kibana:7.14.1
+           ports:
+             - containerPort: 5601
+               name: http
+           env:
+            - name: ELASTICSEARCH_HOSTS
+               value: http://192.168.49.2:30320/
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kib-auto
+  labels:
+    name: kib-auto
+spec:
+  selector:
+    name: kib-auto
+  type: NodePort
+  ports:
+    - nodePort: 12345
+      port: 5601
+      protocol: TCP
+      targetPort: 5601
