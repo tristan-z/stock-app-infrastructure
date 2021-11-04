@@ -1,0 +1,21 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: stock-app-ui
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: stock-app-ui
+  template:
+    metadata:
+      labels:
+        app: stock-app-ui
+    spec:
+      containers:
+        - name: stock-app-ui
+          image: stock-app-ui
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
