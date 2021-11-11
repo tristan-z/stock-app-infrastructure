@@ -58,7 +58,7 @@ spec:
               configMapKeyRef:
                   name: es-config
                   key: ES_JAVA_OPTS
-        readinessProcoe:
+        readinessProbe:
           httpGet:
             scheme: HTTP
             path: /_cluster/health?local=true
